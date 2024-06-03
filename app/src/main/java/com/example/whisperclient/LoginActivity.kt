@@ -39,7 +39,7 @@ class LoginActivity : AppCompatActivity() {
             Toast.makeText(this,"受信", Toast.LENGTH_SHORT).show()
 
             // リクエスト送信（非同期処理）
-            client.newCall(request!!).enqueue(object : Callback {
+            client.newCall(request).enqueue(object : Callback {
                 // リクエストが失敗した場合の処理を実装
                 override fun onFailure(call: Call, e: IOException) {
                     this@LoginActivity.runOnUiThread {
