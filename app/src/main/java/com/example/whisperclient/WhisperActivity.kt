@@ -65,6 +65,7 @@ class WhisperActivity : AppCompatActivity() {
                 println("Request: $request")
 
 
+
                 //ささやき登録処理APIをリクエストして入力したささやきの登録処理を行う
                 //リクエスト送信
                 client.newCall(request!!).enqueue(object  : Callback {
