@@ -6,7 +6,10 @@ import android.os.Bundle
 import android.view.ContextMenu
 import android.view.MenuItem
 import android.view.View
+import android.widget.EditText
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.whisperclient.databinding.ActivityWhisperBinding
 import okhttp3.Call
 import okhttp3.Callback
@@ -17,6 +20,7 @@ import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
 import okio.IOException
+import org.json.JSONArray
 import org.json.JSONObject
 
 class WhisperActivity : AppCompatActivity() {
@@ -63,7 +67,6 @@ class WhisperActivity : AppCompatActivity() {
                 val request = Request.Builder().url("https://click.ecc.ac.jp/ecc/whisper24_d/whisperAdd.php")
                     .post(requestBody.toRequestBody(mediaType)).build()
                 println("Request: $request")
-
 
 
                 //ささやき登録処理APIをリクエストして入力したささやきの登録処理を行う
