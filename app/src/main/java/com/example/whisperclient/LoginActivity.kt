@@ -41,7 +41,7 @@ class LoginActivity : AppCompatActivity() {
             val mediaType = "application/json; charset=utf-8".toMediaType()
             val requestBody = "{\"userId\":\"$userIdEdit\",\"password\":\"$passwordEdit\"}"
             val request = Request.Builder()
-                .url("http://10.18.253.250/whisper/loginAuth.php")
+                .url("https://click.ecc.ac.jp/ecc/whisper24_d/loginAuth.php")
                 .post(requestBody.toRequestBody(mediaType))
                 .build()
 
