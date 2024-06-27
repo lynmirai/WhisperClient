@@ -50,7 +50,7 @@ class CreateUserActivity : AppCompatActivity() {
             """.trimIndent()
                 println("Request Body: $requestBody")
                 // Requestを作成(先ほど設定したデータ形式とパラメータ情報をもとにリクエストデータを作成)
-                val request = Request.Builder().url("http://10.200.2.86/whisper/userAdd.php")
+                val request = Request.Builder().url("https://click.ecc.ac.jp/ecc/whisper24_d/userAdd.php")
                     .post(requestBody.toRequestBody(mediaType)).build()
                 println("Request: $request")
                 // リクエスト送信（非同期処理）
@@ -74,8 +74,12 @@ class CreateUserActivity : AppCompatActivity() {
                         val responseBody = response.body?.string()
                         val jsonResponse = JSONObject(responseBody)
                         try {
+                            println("レスポンスを受信しました:$responseBody")
                             val result = jsonResponse.optString("result")
                             if (result == "success") {
+                                //ユーザIDをグローバル変数に設定
+                                val app = application as MyApplication
+                                app.loginUserId = binding.userIdEdit.text.toString()
                                 val intent =
                                     Intent(this@CreateUserActivity, TimelineActivity::class.java)
                                 startActivity(intent)
