@@ -41,7 +41,7 @@ class LoginActivity : AppCompatActivity() {
             val mediaType = "application/json; charset=utf-8".toMediaType()
             val requestBody = "{\"userId\":\"$userIdEdit\",\"password\":\"$passwordEdit\"}"
             val request = Request.Builder()
-                .url("http://10.18.253.250/whisper/loginAuth.php")
+                .url("https://click.ecc.ac.jp/ecc/whisper24_d/loginAuth.php")
                 .post(requestBody.toRequestBody(mediaType))
                 .build()
 
@@ -63,6 +63,8 @@ class LoginActivity : AppCompatActivity() {
                         runOnUiThread {
                             if (result == "success" && list != null && list.length() == 1) {
                                 Toast.makeText(this@LoginActivity, "Login successful", Toast.LENGTH_SHORT).show()
+                                val app = application as MyApplication
+                                app.loginUserId = userIdEdit
                                 val intent = Intent(this@LoginActivity, TimelineActivity::class.java)
                                 startActivity(intent)
                                 finish()
