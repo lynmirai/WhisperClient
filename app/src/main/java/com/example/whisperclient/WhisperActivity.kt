@@ -112,7 +112,7 @@ class WhisperActivity : AppCompatActivity() {
 
         //cancel
         binding.cancelButton.setOnClickListener {
-            val intent = Intent(this@WhisperActivity, WhisperActivity::class.java)
+            val intent = Intent(this@WhisperActivity, TimelineActivity::class.java)
             startActivity(intent)
         }
 
