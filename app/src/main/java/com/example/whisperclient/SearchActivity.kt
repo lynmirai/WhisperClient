@@ -124,7 +124,7 @@ class SearchActivity : AppCompatActivity() {
                                         val goodJson = goodList.getJSONObject(i)
                                         goods.add(
                                             Good(
-                                                whisperNo = goodJson.optInt("whisperNo"),
+                                                content = goodJson.optString("content"),
                                                 userName = goodJson.optString("userName"),
                                                 userImg = R.drawable.ic_launcher_background,
                                                 gcnt = goodJson.optInt("goodCount"),

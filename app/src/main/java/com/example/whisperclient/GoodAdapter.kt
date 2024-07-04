@@ -30,7 +30,7 @@ class GoodAdapter(private val context: Context, private val goods: List<Good>) :
         val good = goods[position]
         holder.userImageView.setImageResource(good.userImg)
         holder.userNameText.text = good.userName
-        holder.whisperText.text = good.whisperNo.toString()
+        holder.whisperText.text = good.content
         holder.goodCntText.text = good.gcnt.toString()
 
         // userImageのクリックイベント
