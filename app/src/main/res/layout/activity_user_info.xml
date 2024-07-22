@@ -122,7 +122,7 @@
             android:id="@+id/followButton"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:textSize="10sp"
             android:layout_marginLeft="150dp"
             android:text="Follow" />
     </LinearLayout>
