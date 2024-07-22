@@ -107,10 +107,11 @@ class SearchActivity : AppCompatActivity() {
                                         val userJson = userList.getJSONObject(i)
                                         users.add(
                                             User(
-                                                userName = userJson.optString("userId"),
-                                                follow = userJson.optInt("followCount"),
-                                                follower = userJson.optInt("followerCount"),
-                                                userImg = R.drawable.ic_launcher_background
+                                                userName = userJson.optString("userName"),
+                                                follow = userJson.optInt("followCnt"),
+                                                follower = userJson.optInt("followerCnt"),
+                                                userImg = R.drawable.ic_launcher_background,
+                                                userId = userJson.optString("userId")
                                             )
                                         )
                                     }
@@ -127,11 +128,13 @@ class SearchActivity : AppCompatActivity() {
                                                 content = goodJson.optString("content"),
                                                 userName = goodJson.optString("userName"),
                                                 userImg = R.drawable.ic_launcher_background,
-                                                gcnt = goodJson.optInt("goodCount"),
+                                                gcnt = goodJson.optInt("cnt"),
+                                                userId = goodJson.optString("userId")
                                             )
                                         )
                                     }
                                 }
+
                                 runOnUiThread {
                                     val app = application as MyApplication
                                     //ラジオボタンがuserRadioを選択している場合
