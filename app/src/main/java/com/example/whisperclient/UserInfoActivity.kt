@@ -87,7 +87,7 @@ class UserInfoActivity : AppCompatActivity() {
         binding.followCntText.setOnClickListener{
             val intent = Intent(this, FollowListActivity::class.java)
             val followCount = binding.followCntText.text.toString()
-            intent.putExtra("follow", "$followCount")
+            intent.putExtra("followStatus", "follow")
             intent.putExtra("userId", "$userId")
             startActivity(intent)
         }
@@ -95,7 +95,7 @@ class UserInfoActivity : AppCompatActivity() {
         binding.followerCntText.setOnClickListener {
             val intent = Intent(this, FollowListActivity::class.java)
             val followerCount = binding.followerCntText.text.toString()
-            intent.putExtra("follower", "$followerCount")
+            intent.putExtra("followStatus", "follower")
             intent.putExtra("userId", "$userId")
             startActivity(intent)
         }
@@ -268,23 +268,30 @@ class UserInfoActivity : AppCompatActivity() {
                                 ) // 1行分のデータに商品番号、商品名、価格を設定してリストに追加
                             }
 
-                            //いいね情報を格納するリストを作成
-                            val goods = mutableListOf<Good>()
-                            //いいね情報をリストに格納する
-                            val goodList = jsonResponse.optJSONArray("goodList")
-                            if(goodList != null){
-                                for (i in 0 until goodList.length()){
-                                    val goodJson = goodList.getJSONObject(i)
-                                    goods.add(
-                                        Good(
-                                            content = goodJson.optString("content"),
-                                            userName = goodJson.optString("userName"),
-                                            userImg = R.drawable.ic_launcher_background,
-                                            gcnt = goodJson.optInt("goodCount"),
-                                            userId = goodJson.optString("userId")
-                                        )
+                            //ささやき情報一覧が存在する間、ささやき情報をリストに格納する
+                            // RecyclerViewに設定するリストを作成
+                            val goodInfoList = mutableListOf<WhisperData>()
+                            // JSONオブジェクトの中からKey値がlistのValue値を文字列として取得(Value値のイメージ：{"list" : [{"???" : "xxx"}, {"???" : "yyy"} ...]})
+                            val goodList = jsonResponse.getString("goodList")
+                            // 取得したValue値(文字列)は配列の構成になっているので、JSON配列に変換
+                            val jsonArrayGood = JSONArray(goodList)
+                            // 配列をfor文で回して中身を取得
+                            for (i in 0 until jsonArrayGood.length()) {
+                                val userName =
+                                    jsonArrayGood.getJSONObject(i).getString("userName") // 商品番号を取得
+                                val content =
+                                    jsonArrayGood.getJSONObject(i).getString("content")          // 商品名を取得
+//                        val price =
+//                            jsonArray.getJSONObject(i).getString("price")          // 価格を取得
+                                goodInfoList.add(
+                                    WhisperData(
+                                        userName,
+                                        content,
+                                        loginUserId,
+                                        jsonArrayGood.getJSONObject(i).getString("userId"),
+                                        jsonArrayGood.getJSONObject(i).getInt("whisperNo")
                                     )
-                                }
+                                ) // 1行分のデータに商品番号、商品名、価格を設定してリストに追加
                             }
 
                             //ラジオグループで選択されたラジオボタンのIDを取得
@@ -302,7 +309,7 @@ class UserInfoActivity : AppCompatActivity() {
                                     println("whisperList:$whisperInfoList")
                                     //ラジオボタンがwhisperRadioを選択している場合
                                 } else if (section == "2") {
-                                    userRecycle.adapter = GoodAdapter(myapp,goods)
+                                    userRecycle.adapter = WhisperAdapter(goodInfoList)
                                     println("goodList:$goodList")
                                 }
                             }
